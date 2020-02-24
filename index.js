@@ -2,7 +2,7 @@
 
 //format query//
 $(document).ready(function(){
-    $('#submit-btn').on('click', function(e){
+    $('form').on('submit', function(e){
       e.preventDefault();
       
       const defaultNation = 'USA' // or whatever
