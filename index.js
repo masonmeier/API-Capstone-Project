@@ -5,14 +5,19 @@ $(document).ready(function(){
     $('#submit-btn').on('click', function(e){
       e.preventDefault();
       
+      const defaultNation = 'USA' // or whatever
       const nation = $('.nation-val').val();
       const month = $('.month-val').val();
       const apiKey = 'fc1ab01148fbada75e56010b3c2533bba3918d06';
-      const key = apiKey;
-      const monthuri  = 'https://calendarific.com/api/v2/holidays?api_key='+key+'&country='+nation+'&year=2019&month='+month+'';
+      const key = apiKey; // why
+      const baseUri = 'https://calendarific.com/api/v2/holidays?api_key=' + apiKey + '&year=2019';
+        
+      // now we're going to check if we got any input and adjust the query accordingly
+      if (month) baseUri += `&month=${month}`; // add month if it exists
+      baseUri += nation ? `nation=${nation}` : `nation=${defaultNation}`; // ternary - if nation was inputted, use it; else use defaultNation
+       
 
-
-      fetch(monthuri).then (function(response) {
+      fetch(baseUri).then (function(response) {
         return (response.json());
       }).then(function(json){
         console.log(json);
