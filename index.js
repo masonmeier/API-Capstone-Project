@@ -14,7 +14,7 @@ $(document).ready(function(){
         
       // now we're going to check if we got any input and adjust the query accordingly
       if (month) baseUri += `&month=${month}`; // add month if it exists
-      baseUri += nation ? `nation=${nation}` : `nation=${defaultNation}`; // ternary - if nation was inputted, use it; else use defaultNation
+      baseUri += nation ? `country=${nation}` : `country=${defaultNation}`; // ternary - if nation was inputted, use it; else use defaultNation
        
 
       fetch(baseUri).then (function(response) {
