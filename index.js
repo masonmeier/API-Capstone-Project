@@ -46,8 +46,21 @@ function render() {
   let container = `   
   <div id="page">
     <div id="input-page">
-      <h2>Input 1-3 letter nation code</h2><input type="text" id="nation-val"><br>
-      <h2>Input 1-2 character month code</h2><input type="text" id="month-val">
+      <h2>Input 1-2 letter nation code</h2><input type="text" id="nation-val"><br>
+      <label>Input 1-2 character month code</label>
+      <select id="month-val">
+        <option value = "1">1</option>
+        <option value = "2">2</option>
+        <option value = "3">3</option>
+        <option value = "4">4</option>
+        <option value = "5">5</option>
+        <option value = "6">6</option>
+        <option value = "7">7</option>
+        <option value = "8">8</option>
+        <option value = "9">9</option>
+        <option value = "10">10</option>
+        <option value = "11">11</option>
+        <option value = "12">12</option>
       <input type="submit" id="submit-btn">
     </div>
   </div>`;
@@ -60,8 +73,9 @@ function render() {
     outhtml = outhtml + '<p><strong>Holidays:</strong></p> <ol>';
   $.each(holidays, function(index) {
     console.log(index, holidays[index].country.name);
+
     outhtml += '<li>'
-    outhtml += '<a target=”_blank” href=”http://www.google.com/search?q='+holidays[index].name+'”><h2>'+holidays[index].name+' <span class="smallname"></h2></a>';
+    outhtml += '<a target=”_blank” href="http://www.google.com/search?q=%22'+holidays[index].name+'%22"><h2>'+holidays[index].name+' <span class="smallname"></h2></a>';
     outhtml += '<div class="holiday-content"><div class="country><h3>'+holidays[index].country.name+'</h3></div><div class="date"><h3>'+holidays[index].date.iso+'</h3></div></div>';
     outhtml += '</li>'
   });
@@ -73,3 +87,9 @@ function render() {
 } 
 
 
+/*
+1. Turn json object into google search parameters
+2. Do I need an API key to load a seperate google search page
+3. Translate Country name into 2 letter code. 
+
+*/
