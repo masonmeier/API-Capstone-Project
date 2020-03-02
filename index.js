@@ -16,7 +16,7 @@ $(document).ready(function(){
       const month = $('#month-val').val();
       const apiKey = 'fc1ab01148fbada75e56010b3c2533bba3918d06';
       const key = apiKey;
-      const monthuri  = 'https://calendarific.com/api/v2/holidays?api_key='+key+'&country='+nation+'&year=2019&month='+month+'';
+      const monthuri  = 'https://calendarific.com/api/v2/holidays?api_key='+key+'&country='+nation+'&year=2020&month='+month+'';
 
 
       fetch(monthuri).then (function(response) {
@@ -86,6 +86,40 @@ function render() {
   $('main').html(outhtml);
 } 
 
+
+//map functionality//
+
+let map;
+let service;
+let infowindow;
+
+function initMap() {
+  var sydney = new google.maps.LatLng(-33.867, 151.195);
+
+  infowindow = new google.maps.InfoWindow();
+
+  map = new google.maps.Map(
+      document.getElementById('map'), {center: sydney, zoom: 15});
+
+  var request = {
+    query: '#nation-val',
+    fields: ['name', 'geometry'],
+  };
+
+  var service = new google.maps.places.PlacesService(map);
+
+  service.findPlaceFromQuery(request, function(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        createMarker(results[i]);
+      }
+      map.setCenter(results[0].geometry.location);
+    }
+  });
+}
+
+
+//end map functionality//
 
 /*
 1. Turn json object into google search parameters
