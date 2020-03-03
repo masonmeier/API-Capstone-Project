@@ -9,15 +9,16 @@ let state = {
 $(document).ready(function(){
     state.adding = true;
     render();
-    $('#submit-btn').on('click', function(e){
+    $('form').on('submit', function(e){
       e.preventDefault();
       
       const nation = $('#nation-val').val();
       const month = $('#month-val').val();
       const apiKey = 'fc1ab01148fbada75e56010b3c2533bba3918d06';
       const key = apiKey;
-      const monthuri  = 'https://calendarific.com/api/v2/holidays?api_key='+key+'&country='+nation+'&year=2020&month='+month+'';
+      const monthuri  = 'https://calendarific.com/api/v2/holidays?api_key='+key+'&country='+findISO(nation)+'&year=2020&month='+month+'';
 
+      setLocation(findISO(nation))
 
       fetch(monthuri).then (function(response) {
         return (response.json());
@@ -38,37 +39,14 @@ $(document).ready(function(){
         } 
       }); 
     });
-initMap(); 
+    initMap(); 
+    setLocation('US');
 });
 
 function render() {
   let outhtml='';
   let holidays= state.holidays
-  let container = `   
-  <div id="page">
-    <div id="input-page">
-      <h2>Input 1-2 letter nation code</h2><input type="text" id="nation-val"><br>
-      <label>Input 1-2 character month code</label>
-      <select id="month-val">
-        <option value = "1">1</option>
-        <option value = "2">2</option>
-        <option value = "3">3</option>
-        <option value = "4">4</option>
-        <option value = "5">5</option>
-        <option value = "6">6</option>
-        <option value = "7">7</option>
-        <option value = "8">8</option>
-        <option value = "9">9</option>
-        <option value = "10">10</option>
-        <option value = "11">11</option>
-        <option value = "12">12</option>
-      <input type="submit" id="submit-btn">
-    </div>
-  </div>`;
-  if (state.adding){
-    outhtml += container
-  };
-
+  
   if(state.error) { outhtml = outhtml + `<p>${state.error}</p>`; }
   if (state.holidays.length){
     outhtml = outhtml + '<p><strong>Holidays:</strong></p> <ol>';
@@ -93,62 +71,33 @@ function render() {
 let map;
 let service;
 let infowindow;
+let geocoder;
 
+function setLocation(countryCode){
+  let location = geocoder.geocode({ address: isoCountries[countryCode] }, (results, status) => {
+    if (status === google.maps.GeocoderStatus.OK) map.setCenter(results[0].geometry.location);
+  });
+}
 function initMap() {
-  var sydney = new google.maps.LatLng(-33.867, 151.195);
+  var start = new google.maps.LatLng(1.4206, 38.9067);
 
   infowindow = new google.maps.InfoWindow();
 
-      map = new google.maps.Map( document.getElementById('map'), 
-      {disableDefaultUI: true, center: sydney, zoom: 4, scrollwheel: false, 
-      navigationControl: false, mapTypeControl: false, scaleControl: false, draggable: false });
-  
-      map = new google.maps.Map(
-        document.getElementById('map'),
-        {
-          disableDefaultUI: true,
-          center: sydney,
-          zoom: 4,
-          scrollwheel: false,
-          navigationControl: false,
-          mapTypeControl: false,
-          scaleControl: false,
-          draggable: false
-        }
-    );
-  
-    const geocoder = new google.maps.Geocoder(); // this object helps us find the coordinates by name
-    const countryCode = $('#nation-input').value; // our user's input
-    
-    // use isoCountries[countryCode] to get the country's name from its code
-    // provide the name as the `address` property for geocode()'s config
-    // use a callback function that receives results and status from geocode
-    // then check the service is OK before using what we got back from geocode
-    /// to set the map to a new center
-    let location = geocoder.geocode({ address: isoCountries[countryCode] }, (results, status) => {
-      if (status === google.maps.GeocoderStatus.OK) map.setCenter(results[0].geometry.location);
-    });
-
-
-  /*
-  var request = {
-    query: $('#nation-input').val(),
-    fields: ['name', 'geometry'],
-  };
-
-  var geoCode = new google.maps.places.GeoCode(map);
-  //replace with geo code code
-  service.findPlaceFromQuery(request, function(results, status) {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-      for (var i = 0; i < results.length; i++) {
-
+  map = new google.maps.Map(document.getElementById('map'),{
+        disableDefaultUI: true,
+        center: start,
+        zoom: 4.5,
+        scrollwheel: false,
+        navigationControl: false,
+        mapTypeControl: false,
+        scaleControl: false,
+        draggable: false
       }
-      map.setCenter(results[0].geometry.location);
-    }
-  });
+  );
+  
+  geocoder = new google.maps.Geocoder(); // this object helps us find the coordinates by name
+  
 }
-
-*/
 function findISO(countryName){ let keys=Object.keys(isoCountries); 
   for(let i=0; i<keys.length; i++){ 
     let key=keys[i]; 
@@ -407,18 +356,3 @@ const isoCountries = {
 };
 
 //end map functionality//
-
-/*
-1. Turn json object into google search parameters
-2. Do I need an API key to load a seperate google search page
-3. Translate Country name into 2 letter code. 
-changes:
-want to hide map in init map function
-on submit of form do lines 106-119
-show map
-
-line 107 $('#nation-input').val()
-
-function findISO(countryName){ let keys=Object.keys(isoCountries); for(let i=0; i<keys.length; i++){ let key=keys[i]; if(countryName.toLowerCase() === isoCountries[key].toLowerCase()){ return key; } } }
-
-*/
