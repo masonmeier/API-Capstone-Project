@@ -102,14 +102,42 @@ function initMap() {
       map = new google.maps.Map( document.getElementById('map'), 
       {disableDefaultUI: true, center: sydney, zoom: 4, scrollwheel: false, 
       navigationControl: false, mapTypeControl: false, scaleControl: false, draggable: false });
+  
+      map = new google.maps.Map(
+        document.getElementById('map'),
+        {
+          disableDefaultUI: true,
+          center: sydney,
+          zoom: 4,
+          scrollwheel: false,
+          navigationControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          draggable: false
+        }
+    );
+  
+    const geocoder = new google.maps.Geocoder(); // this object helps us find the coordinates by name
+    const countryCode = $('#nation-input').value; // our user's input
+    
+    // use isoCountries[countryCode] to get the country's name from its code
+    // provide the name as the `address` property for geocode()'s config
+    // use a callback function that receives results and status from geocode
+    // then check the service is OK before using what we got back from geocode
+    /// to set the map to a new center
+    let location = geocoder.geocode({ address: isoCountries[countryCode] }, (results, status) => {
+      if (status === google.maps.GeocoderStatus.OK) map.setCenter(results[0].geometry.location);
+    });
 
+
+  /*
   var request = {
     query: $('#nation-input').val(),
     fields: ['name', 'geometry'],
   };
 
-  var service = new google.maps.places.PlacesService(map);
-
+  var geoCode = new google.maps.places.GeoCode(map);
+  //replace with geo code code
   service.findPlaceFromQuery(request, function(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       for (var i = 0; i < results.length; i++) {
@@ -119,15 +147,18 @@ function initMap() {
     }
   });
 }
+
+*/
 function findISO(countryName){ let keys=Object.keys(isoCountries); 
-  for(let i=0; i<keys.length; i++){ let key=keys[i]; 
+  for(let i=0; i<keys.length; i++){ 
+    let key=keys[i]; 
     if(countryName.toLowerCase() === isoCountries[key].toLowerCase()){ 
       return key; 
     } 
   } 
 }
 
-var isoCountries = {
+const isoCountries = {
   'AF' : 'Afghanistan',
   'AX' : 'Aland Islands',
   'AL' : 'Albania',
