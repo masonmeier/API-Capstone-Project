@@ -31,7 +31,7 @@ $(document).ready(function(){
         else {
           state.holidays = json.response.holidays;
           if (!state.holidays.length){
-          state.error = "no holidays found!"
+          state.error = "<p id='error-code'>No holidays found!</p>"
           }
           state.adding = false;
           render();
@@ -49,7 +49,7 @@ function render() {
   
   if(state.error) { outhtml = outhtml + `<p>${state.error}</p>`; }
   if (state.holidays.length){
-    outhtml = outhtml + '<p><strong>Holidays:</strong></p> <ol>';
+    outhtml = outhtml + '<p id="holidays"><strong>Holidays:</strong></p> <ol>';
   $.each(holidays, function(index) {
     console.log(index, holidays[index].country.name);
 
@@ -64,6 +64,15 @@ function render() {
 
   $('main').html(outhtml);
 } 
+
+function unHide() {
+  var x = document.getElementById("info");
+  if (x.style.display === "block") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "block";
+  }
+}
 
 
 //map functionality//
