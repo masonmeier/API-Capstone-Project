@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const isoCountries = {
     'AF' : 'Afghanistan',
     'AX' : 'Aland Islands',
@@ -245,5 +246,8 @@ const isoCountries = {
     'ZM' : 'Zambia',
     'ZW' : 'Zimbabwe'
   };
+=======
+
+>>>>>>> 9185aee3dfb45c0c8bb3e3b1a240f885b25b70b1
 
 
