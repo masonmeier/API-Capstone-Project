@@ -16,8 +16,8 @@ https://masonmeier.github.io/Something-to-Celebrate/
 
 Sample Images: 
 
-![An image of the landing page](images/screenshot1)
-![an image of the formpage](images/screenshot2)
+![An image of the landing page](images/screenshot1.jpg)
+![an image of the formpage](images/screenshot2.jpg)
 
 
 -----------------------------------------------------
