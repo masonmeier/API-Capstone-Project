@@ -23,7 +23,6 @@ $(document).ready(function(){
       fetch(monthuri).then (function(response) {
         return (response.json());
       }).then(function(json){
-        console.log(json);
         if(json.status === "422") {
           $('#hdapidata').html("<h2>Nation not found!</h2>");
         }
@@ -51,8 +50,6 @@ function render() {
   if (state.holidays.length){
     outhtml = outhtml + '<p id="holidays"><strong>Holidays:</strong></p> <ol>';
   $.each(holidays, function(index) {
-    console.log(index, holidays[index].country.name);
-
     outhtml += '<li>'
     outhtml += '<a target=”_blank” href="http://www.google.com/search?q=%22'+holidays[index].name+'%22"><h2>'+holidays[index].name+' <span class="smallname"></h2></a>';
     outhtml += '<div class="holiday-content"><div class="country><h3>'+holidays[index].country.name+'</h3></div><div class="date"><h3>'+holidays[index].date.iso+'</h3></div></div>';
@@ -60,7 +57,6 @@ function render() {
   });
     outhtml += '</ol></div>';
   }
-
 
   $('main').html(outhtml);
 } 
@@ -78,7 +74,6 @@ function unHide() {
 //map functionality//
 
 let map;
-let service;
 let infowindow;
 let geocoder;
 

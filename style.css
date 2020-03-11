@@ -2,16 +2,25 @@
     box-sizing: border-box;
     font-family: 'Josefin Sans', sans-serif;
   }
+
+  html, body {
+    height: 100%;
+  }
+
   #page1 {
     background-image: url('images/Partyworld.jpg');
     background-repeat: no-repeat;
     background-size: contain;
   }
 
+  #find {
+    vertical-align: middle;
+  }
+
   #app-exp {
     background: rgba(61, 61, 61);
     width: 80vw;
-    margin-top: 10vh;
+    margin-top: 15vh;
     text-align: center;
     right: 0;
     left: 0;
@@ -34,13 +43,12 @@
 
   .explanation {
     text-align: center;
-    margin-top: 1vh;
-    background:rgba(61, 61, 61, 0.9);
-    padding: 2px;
+    background:rgba(61, 61, 61);
     color: white;
     border-radius: 10px;
     width: 40%;
-    height: 20vh;
+    height: 15vh;
+    padding: 2px;
   }
 
   #startarea {
@@ -57,6 +65,9 @@
     display: inline-block;
     background: #2db34a;
     border-radius: 6px;
+    border: 1px;
+    border-color: black;
+    border-style: solid;
     cursor: pointer;
     height: 80px;
     line-height: 80px;
@@ -183,12 +194,12 @@
     }
 
     #app-exp {
-      margin-top: 40vh;
+      margin-top: 30vh;
     }
 
     .explanation {
       text-align: center;
-      background:rgba(61, 61, 61, 0.9);
+      background:rgba(61, 61, 61);
     }
 
     main {
@@ -217,7 +228,7 @@
       width: 40vw;
       right: 0;
       margin-right: 0 auto;
-      margin-left: 50vw;
+      margin-left: 5vw;
     }
 
     #month-val {
@@ -227,28 +238,34 @@
 
     .explanation {
       text-align: center;
-      background:rgba(61, 61, 61,);
+      background:rgba(61, 61, 61);
       color: white;
       width: 40vw;
       height: 12vh;
       right: 0;
-      margin-right: auto;
-      margin-left: 50vw;
+      margin-right: auto;   
+      margin-left: 5vw;
     }
     
     #btncntnr {
       right: 0;
       margin-right: auto;
-      margin-left: 42vw;
+      margin-left: 60vw;
     }
 
     #info {
       height: 60vh;
+      width: 40vw;
     }
   }
 
 
   @media (min-width: 900px) {
+
+    #btncntnr {
+      margin-left: 42vw;
+    }
+
     #app-exp {
       margin-left: 55vw;
       width: 30vw;
@@ -257,7 +274,7 @@
 
     .explanation {
       text-align: center;
-      background:rgba(61, 61, 61, 0.9);
+      background:rgba(61, 61, 61);
     }
     
     #month-val {
@@ -289,7 +306,7 @@
     }
 
     #info {
-      width: 26vw;
+      width: 30vw;
     }
 
   }
